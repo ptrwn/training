@@ -1,43 +1,29 @@
 """
 Given a cell with "it's a fib sequence" from slideshow,
-please write function "check_fib", which accepts a Sequence 
-of integers, and returns if the given sequence is a Fibonacci 
+please write function "check_fib", which accepts a Sequence
+of integers, and returns if the given sequence is a Fibonacci
 sequence.
 We guarantee, that the given sequence contain >= 0 integers inside.
 """
-from collections import Sequence
+
+from typing import List
 
 
-def check_fibonacci(data: Sequence[int]) -> bool:
-    ...
+def check_fibonacci(data: List[int]) -> bool:
 
+    if len(data) < 3:
+        return False
 
-"""
+    a, b, c = data[0], data[1], data[2]
 
-# this code probably contain bugs...
+    while len(data) >= 4:
 
+        if not (a + b) == c:
+            return False
 
-def _check_window(x: int, y: int, z: int) -> bool:
-    return (x + y) == z
+        data = data[1:]
 
+        a, b, c = b, c, data[2]
 
-data_to_process = 
-[0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 
-377, 610, 987, 1597, 2584, 4181, 6765]
-
-
-assert len(data_to_process) >= 3
-
-a, b, c = data_to_process[0], data_to_process[1], data_to_process[2]
-
-while data_to_process:
-    if not _check_window(a, b, c):
-        raise ValueError("Invalid data")
-
-    a, b, c = b, c, data_to_process[0]
-    data_to_process = data_to_process[1:]
-
-print("it's a fib sequence!")
-
-
-"""
+    else:
+        return (a + b) == c
