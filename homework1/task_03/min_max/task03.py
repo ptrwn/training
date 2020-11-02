@@ -1,5 +1,5 @@
 """
-Write down the function, which reads input line-by-line, and find 
+Write down the function, which reads input line-by-line, and finds  
 maximum and minimum values.
 Function should return a tuple with the max and min values.
 For example for [1, 2, 3, 4, 5], function should return [1, 5]
@@ -13,4 +13,11 @@ from typing import Tuple
 
 
 def find_maximum_and_minimum(file_name: str) -> Tuple[int, int]:
-    ...
+
+    with open(file_name, "r") as f:
+        line = f.read().replace("\n", ",")
+        line_l = [int(x) for x in line.split(",")]
+        return min(line_l), max(line_l)
+
+
+print(find_maximum_and_minimum("in.txt"))
