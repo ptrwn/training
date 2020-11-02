@@ -18,6 +18,3 @@ def find_maximum_and_minimum(file_name: str) -> Tuple[int, int]:
         line = f.read().replace("\n", ",")
         line_l = [int(x) for x in line.split(",")]
         return min(line_l), max(line_l)
-
-
-print(find_maximum_and_minimum("in.txt"))
