@@ -9,4 +9,14 @@ from typing import List
 
 
 def check_sum_of_four(a: List[int], b: List[int], c: List[int], d: List[int]) -> int:
-    ...
+    count = 0
+    res = 0
+
+    for i in range(len(a)):
+        for j in range(len(a)):
+            for k in range(len(a)):
+                for l in range(len(a)):
+                    count += 1
+                    if a[i] + b[j] + c[k] + d[l] == 0:
+                        res += 1
+    return res
