@@ -10,4 +10,16 @@ from typing import List
 
 
 def find_maximal_subarray_sum(nums: List[int], k: int) -> int:
-    ...
+    if k > len(nums):
+        return 1, "Error: sub-array cannot be longer than the original array"
+
+    max_ = nums[0]
+
+    for i in range(len(nums) - k + 1):
+
+        subarr = nums[i : i + k]
+        for j in range(len(subarr)):
+            if sum(subarr[j:]) > max_:
+                max_ = sum(subarr[j:])
+
+    return max_
