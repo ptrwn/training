@@ -6,10 +6,12 @@ Examples:
     nums = [1, 3, -1, -3, 5, 3, 6, 7], k = 3
     result = 16
 """
-from typing import List
+from typing import List, Tuple, Union
+
+Response = Union[Tuple[int, str], int]
 
 
-def find_maximal_subarray_sum(nums: List[int], k: int) -> int:
+def find_maximal_subarray_sum(nums: List[int], k: int) -> Response:
     if k > len(nums):
         return 1, "Error: sub-array cannot be longer than the original array"
 
