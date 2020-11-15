@@ -4,26 +4,26 @@ please write function "check_fib", which accepts a Sequence
 of integers, and returns if the given sequence is a Fibonacci
 sequence.
 We guarantee, that the given sequence contain >= 0 integers inside.
+UPD.:
+- should be True for [0], [0, 1], [0, 1, 1]
+- ONLY Fib nums, should be False for [1, 100, 101, 201, 302, ...]
 """
 
 from typing import List
 
 
+def fib(n: int):
+    a, b, counter = 0, 1, 1
+    while True:
+        if counter > n:
+            return
+        yield a
+        a, b = b, a + b
+        counter += 1
+
+
 def check_fibonacci(data: List[int]) -> bool:
-
-    if len(data) < 3:
+    if len(data) == 0:
         return False
-
-    a, b, c = data[0], data[1], data[2]
-
-    while len(data) >= 4:
-
-        if not (a + b) == c:
-            return False
-
-        data = data[1:]
-
-        a, b, c = b, c, data[2]
-
     else:
-        return (a + b) == c
+        return data == list(fib(len(data)))

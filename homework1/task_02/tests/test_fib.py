@@ -12,9 +12,11 @@ from homework1.task_02.fib.task02 import check_fibonacci
         ([1], False),
         ([1, 2], False),
         ([1, 1, 1], False),
+        ([1, 100, 101, 201, 302], False),
+        ([0], True),
+        ([0, 1], True),
         ([0, 1, 1], True),
         ([0, 1, 1, 2], True),
-        ([5, 8, 13, 21, 34, 55, 89, 144], True),
     ],
 )
 def test_fib(data: List[int], expected_result: bool):
