@@ -1,7 +1,8 @@
 from typing import List
 
 import pytest
-from fib.task02 import check_fibonacci
+
+from homework1.task_02.fib.task02 import check_fibonacci
 
 
 @pytest.mark.parametrize(
