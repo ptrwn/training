@@ -36,10 +36,20 @@ def get_longest_diverse_words(file_path: str) -> List[str]:
         else:
             el and clean_words.append(el)
 
-    print(clean_words)
+    # remove duplicates
+    unique_words = list(set(clean_words))
 
+    # make a dict where each unique word keys sum of its length with number of
+    # its unique symbols - so that we get max in both criteria
+    counter = {word: len(word) + len(set(word)) for word in unique_words}
 
-get_longest_diverse_words("data.txt")
+    # sort by length, take ten longest
+    longest_diverse = [
+        item[0]
+        for item in list(sorted(counter.items(), key=lambda item: item[1]))[-10:]
+    ]
+
+    return longest_diverse
 
 
 def get_rarest_char(file_path: str) -> str:
