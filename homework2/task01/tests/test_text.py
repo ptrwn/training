@@ -4,6 +4,7 @@ from typing import Dict, List
 import pytest
 
 from homework2.task01.text.task01 import (
+    count_non_ascii_chars,
     count_punctuation_chars,
     get_longest_diverse_words,
     get_rarest_char,
@@ -56,5 +57,16 @@ def test_get_rarest_char(file_path: str, expected_result: str):
 def test_count_punctuation_chars(file_path: str, expected_result: Dict[str, int]):
 
     actual_result = count_punctuation_chars(file_path)
+
+    assert actual_result == expected_result
+
+
+@pytest.mark.parametrize(
+    ["file_path", "expected_result"],
+    [(file_path, {"—": 1, "ß": 2, "ü": 3})],
+)
+def test_count_non_ascii_chars(file_path: str, expected_result: Dict[str, int]):
+
+    actual_result = count_non_ascii_chars(file_path)
 
     assert actual_result == expected_result

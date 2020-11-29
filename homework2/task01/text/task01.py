@@ -2,7 +2,7 @@
 Given a file containing text. Complete using only default collections:
     1) Find 10 longest words consisting from largest amount of unique symbols +
     2) Find rarest symbol for document + 
-    3) Count every punctuation char
+    3) Count every punctuation char +
     4) Count every non ascii char
     5) Find most common non ascii char for document
 """
@@ -113,8 +113,32 @@ def count_punctuation_chars(file_path: str) -> Dict[str, int]:
     return counter
 
 
-def count_non_ascii_chars(file_path: str) -> int:
-    ...
+def count_non_ascii_chars(file_path: str) -> Dict[str, int]:
+    """ Count every non ascii char."""
+
+    with open(file_path, "r") as f:
+        lines = f.readlines()
+
+    # replace '\u00e4' representations with the actual symbols:
+    res = [part.encode("latin1").decode("unicode_escape") for part in lines]
+
+    # remove tabs and newlines, put all words in one list
+    words_list = [
+        word for line in res for word in line.strip("\t\n").split(" ") if word
+    ]
+
+    w_srt = "".join(words_list)
+
+    counter = {}
+
+    for i in w_srt:
+        if ord(i) > 127:
+            if i in counter:
+                counter[i] += 1
+            else:
+                counter[i] = 1
+
+    return counter
 
 
 def get_most_common_non_ascii_char(file_path: str) -> str:
