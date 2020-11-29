@@ -3,8 +3,8 @@ Given a file containing text. Complete using only default collections:
     1) Find 10 longest words consisting from largest amount of unique symbols +
     2) Find rarest symbol for document + 
     3) Count every punctuation char +
-    4) Count every non ascii char
-    5) Find most common non ascii char for document
+    4) Count every non ascii char +
+    5) Find most common non ascii char for document +
 """
 from typing import Dict, List
 
@@ -142,4 +142,13 @@ def count_non_ascii_chars(file_path: str) -> Dict[str, int]:
 
 
 def get_most_common_non_ascii_char(file_path: str) -> str:
-    ...
+    """Find most common non ascii char for document."""
+
+    counter = count_non_ascii_chars(file_path)
+
+    # get a list of tuples sorted by symbol occurrence from smalles to largest
+    sort_count = [
+        item for item in list(sorted(counter.items(), key=lambda item: item[1]))
+    ]
+
+    return sort_count[-1][0]
