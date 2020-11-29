@@ -1,16 +1,16 @@
 """
 Given a file containing text. Complete using only default collections:
     1) Find 10 longest words consisting from largest amount of unique symbols +
-    2) Find rarest symbol for document
+    2) Find rarest symbol for document + 
     3) Count every punctuation char
     4) Count every non ascii char
     5) Find most common non ascii char for document
 """
-from typing import List
+from typing import Dict, List
 
 
 def get_longest_diverse_words(file_path: str) -> List[str]:
-    """Find 10 longest words consisting from largest amount of unique symbol. """
+    """Find 10 longest words consisting from largest amount of unique symbol."""
 
     with open(file_path, "r") as f:
         lines = f.readlines()
@@ -62,7 +62,7 @@ def get_rarest_char(file_path: str) -> str:
     # replace '\u00e4' representations with the actual symbols:
     res = [part.encode("latin1").decode("unicode_escape") for part in lines]
 
-    # # remove tabs and newlines, put all words in one list
+    # remove tabs and newlines, put all words in one list
     words_list = [
         word for line in res for word in line.strip("\t\n").split(" ") if word
     ]
@@ -85,8 +85,32 @@ def get_rarest_char(file_path: str) -> str:
     return sort_count[0][0]
 
 
-def count_punctuation_chars(file_path: str) -> int:
-    ...
+def count_punctuation_chars(file_path: str) -> Dict[str, int]:
+    """Count every punctuation char."""
+
+    with open(file_path, "r") as f:
+        lines = f.readlines()
+
+    # replace '\u00e4' representations with the actual symbols:
+    res = [part.encode("latin1").decode("unicode_escape") for part in lines]
+
+    # remove tabs and newlines, put all words in one list
+    words_list = [
+        word for line in res for word in line.strip("\t\n").split(" ") if word
+    ]
+
+    w_srt = "".join(words_list)
+
+    counter = {}
+
+    for i in w_srt:
+        if i in "».,()?!-«—'\"":
+            if i in counter:
+                counter[i] += 1
+            else:
+                counter[i] = 1
+
+    return counter
 
 
 def count_non_ascii_chars(file_path: str) -> int:
