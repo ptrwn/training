@@ -14,5 +14,20 @@ Output: 2, 1
 from typing import List, Tuple
 
 
-def major_and_minor_elem(inp: List) -> Tuple[int, int]:
-    ...
+def major_and_minor_elem(inp: List[int]) -> Tuple[int, int]:
+
+    counter = {}
+
+    for elem in inp:
+        if elem in counter:
+            counter[elem] += 1
+        else:
+            counter[elem] = 1
+
+    sort_count = [
+        item for item in list(sorted(counter.items(), key=lambda item: item[1]))
+    ]
+
+    print(sort_count)
+
+    return sort_count[-1][0], sort_count[0][0]
