@@ -1,6 +1,6 @@
 """
 Given a file containing text. Complete using only default collections:
-    1) Find 10 longest words consisting from largest amount of unique symbols
+    1) Find 10 longest words consisting from largest amount of unique symbols +
     2) Find rarest symbol for document
     3) Count every punctuation char
     4) Count every non ascii char
@@ -10,6 +10,7 @@ from typing import List
 
 
 def get_longest_diverse_words(file_path: str) -> List[str]:
+    """Find 10 longest words consisting from largest amount of unique symbol. """
 
     with open(file_path, "r") as f:
         lines = f.readlines()
@@ -53,7 +54,35 @@ def get_longest_diverse_words(file_path: str) -> List[str]:
 
 
 def get_rarest_char(file_path: str) -> str:
-    ...
+    """ Find rarest symbol for document."""
+
+    with open(file_path, "r") as f:
+        lines = f.readlines()
+
+    # replace '\u00e4' representations with the actual symbols:
+    res = [part.encode("latin1").decode("unicode_escape") for part in lines]
+
+    # # remove tabs and newlines, put all words in one list
+    words_list = [
+        word for line in res for word in line.strip("\t\n").split(" ") if word
+    ]
+
+    w_str = "".join(words_list)
+
+    counter = {}
+
+    for i in w_str:
+        if i in counter:
+            counter[i] += 1
+        else:
+            counter[i] = 1
+
+    # get a list of tuples sorted by symbol occurrence from smalles to largest
+    sort_count = [
+        item for item in list(sorted(counter.items(), key=lambda item: item[1]))
+    ]
+
+    return sort_count[0][0]
 
 
 def count_punctuation_chars(file_path: str) -> int:
