@@ -28,6 +28,4 @@ def major_and_minor_elem(inp: List[int]) -> Tuple[int, int]:
         item for item in list(sorted(counter.items(), key=lambda item: item[1]))
     ]
 
-    print(sort_count)
-
     return sort_count[-1][0], sort_count[0][0]
