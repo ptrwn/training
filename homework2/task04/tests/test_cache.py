@@ -18,3 +18,10 @@ def test_cache():
     val_1 = cache_func(*some)
     val_2 = cache_func(*some)
     assert val_1 is val_2
+
+
+def test_cache_kw():
+
+    val_1 = cache_func(a=2, b=3)
+    val_2 = cache_func(a=2, b=3)
+    assert val_1 is val_2
