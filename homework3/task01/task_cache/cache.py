@@ -21,3 +21,27 @@ def f():
 ? 2
 '2'
 """
+
+from typing import Callable
+
+
+def cacher(times: int) -> Callable:
+    def inner_dec(func: Callable) -> Callable:
+        def helper(*args, **kwargs) -> str:
+            if helper.limit > 0:
+                helper.limit -= 1
+            else:
+                helper.limit = times
+                helper.curr_val = func()
+            return helper.curr_val
+
+        helper.limit = times
+        helper.curr_val = func()
+        return helper
+
+    return inner_dec
+
+
+@cacher(times=2)
+def f() -> str:
+    return input("? ")
